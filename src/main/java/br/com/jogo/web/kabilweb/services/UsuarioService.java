@@ -1,12 +1,12 @@
 package br.com.jogo.web.kabilweb.services;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
+
+import br.com.jogo.web.kabilweb.dtos.TokenDto;
 import br.com.jogo.web.kabilweb.dtos.UsuarioDto;
 
 @Service
@@ -15,18 +15,19 @@ public class UsuarioService {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	public Integer cadastro(HttpServletRequest req) {
+	@Autowired
+	Gson gson;
+	
+	public Integer cadastro(UsuarioDto usuario) {
 		String url = "http://localhost:8080/usuario/cadastro";
-		HttpStatus resp = restTemplate.postForEntity(url, new UsuarioDto(req.getParameter("nome"), 
-                                                     req.getParameter("senha"), req.getParameter("email")), 
-                                                     String.class).getStatusCode();
-		return resp.value();
+		System.out.println(usuario);
+		return restTemplate.postForEntity(url, usuario, String.class).getStatusCode().value();
 	}
 
-	public String login(HttpServletRequest req) {
+	public String login(UsuarioDto usuario) {
 		String url = "http://localhost:8080/auth";
-		return restTemplate.postForEntity(url, new UsuarioDto(req.getParameter("nome"), 
-				                          req.getParameter("senha")), 
-				                          String.class).getBody();
+		String resposta = restTemplate.postForEntity(url, usuario, String.class).getBody();
+		TokenDto tokenDto = gson.fromJson(resposta, TokenDto.class);
+		return tokenDto.getToken().substring(0, 10);
 	}
 }

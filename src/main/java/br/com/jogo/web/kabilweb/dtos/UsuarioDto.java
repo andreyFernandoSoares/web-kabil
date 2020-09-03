@@ -6,16 +6,7 @@ public class UsuarioDto {
 	private String email;
 	private String senha;
 	
-	public UsuarioDto(String nome, String senha) {
-		this.nome = nome;
-		this.email = senha;
-	}
-	
-	public UsuarioDto(String nome, String senha, String email) {
-		this.nome = nome;
-		this.email = senha;
-		this.senha = email;
-		
+	public UsuarioDto() {
 	}
 
 	public String getNome() {
@@ -28,5 +19,22 @@ public class UsuarioDto {
 	
 	public String getSenha() {
 		return senha;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	@Override
+	public String toString() {
+		return "UsuarioDto [nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
 	}
 }
