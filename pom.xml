@@ -8,7 +8,7 @@
 		<version>2.1.16.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.jogo.web</groupId>
+	<groupId>br.com.jogo.web</groupId> 
 	<artifactId>kabil-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>KabilWeb</name>
